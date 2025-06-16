@@ -73,6 +73,8 @@ services:
       - cestaService
       - pagosService
 
+      
+# bases de datos, cada uno en su propio contenedor
   productoDb:
     image: postgres:13
     environment:
@@ -125,7 +127,7 @@ services:
   inventarioDb:
     image: mongo:5
 
-  bigtableEmulator:
+  bigTAbleDB:
     image: google/cloud-sdk:latest
     command: 
     ports:
