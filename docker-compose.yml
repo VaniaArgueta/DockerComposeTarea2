@@ -1,0 +1,132 @@
+version: "3.9"
+services:
+  productoService:
+    build: ./producto
+    ports:
+      - "8001:8000"
+    depends_on:
+      - productoDb
+    environment:
+      - DB_HOST=productoDb
+      - DB_PORT=5432
+      - DB_NAME=producto
+  cestaService:
+    build: ./cesta
+    ports:
+      - "8002:8000"
+    depends_on:
+      - cestaDb
+
+  pagosService:
+    build: ./pagos
+    ports:
+      - "8003:8000"
+    depends_on:
+      - pagosDb
+
+  pedidosService:
+    build: ./pedidos
+    ports:
+      - "8004:8000"
+    depends_on:
+      - pedidosDb
+
+  devolucionesService:
+    build: ./devoluciones
+    ports:
+      - "8005:8000"
+    depends_on:
+      - devolucionesDb
+
+  ofertasService:
+    build: ./ofertas
+    ports:
+      - "8006:8000"
+    depends_on:
+      - ofertasDb
+
+  clienteService:
+    build: ./cliente
+    ports:
+      - "8007:8000"
+    depends_on:
+      - clienteDb
+
+  inventarioService:
+    build: ./inventario
+    ports:
+      - "8008:8000"
+    depends_on:
+      - inventarioDb
+
+  reporteriaService:
+    build: ./reporteria
+    ports:
+      - "8009:8000"
+ 
+  apiGateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - productoService
+      - cestaService
+      - pagosService
+
+  productoDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: producto
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  cestaDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: cesta
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  pagosDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: pagos
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  pedidosDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: pedidos
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  devolucionesDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: devoluciones
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  ofertasDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ofertas
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  clienteDb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: cliente
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+
+  inventarioDb:
+    image: mongo:5
+
+  bigtableEmulator:
+    image: google/cloud-sdk:latest
+    command: 
+    ports:
+      - "8086:8086"
